@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>ESA1</title>
+    <script src="https://unpkg.com/gojs/release/go-debug.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+
+    <script>
+      function init() {
+        var $ = go.GraphObject.make
+        myDiagram = $(go.Diagram, "myDiagramDiv")
+
+        myDiagram.nodeTemplate = $(
+          go.Node,
+          "Auto",
+          $(go.Shape, "Circle", { fill: "transparent" }),
+
+          $(
+            go.TextBlock,
+            "text",
+            { margin: 10 },
+            new go.Binding("text", "key")
+          ),
+          new go.Binding("location", "loc", go.Point.parse)
+        )
+
+        myDiagram.linkTemplate = $(
+          go.Link,
+          $(go.Shape),
+          $(go.Shape, { toArrow: "Standard" }),
+
+          $(
+            go.TextBlock,
+            {
+              margin: 5,
+              font: "400 10pt Source Sans Pro, sans-serif",
+            },
+            new go.Binding("text", "text"),
+            { segmentOffset: new go.Point(0, -10) }
+          )
+        )
+
+        myDiagram.add(
+          $(
+            go.Part,
+            { location: new go.Point(300, 620) },
+            $(go.TextBlock, "Q = {q0, q1, q2, q3, q4, q5, q6, q7}", {
+              font: " 10pt sans-serif",
+            })
+          ),
+          myDiagram.add(
+            $(
+              go.Part,
+              { location: new go.Point(300, 640) },
+              $(go.TextBlock, "Σ = {B,T,S,V,X,P,E}", {
+                font: " 10pt sans-serif",
+              })
+            )
+          ),
+          myDiagram.add(
+            $(
+              go.Part,
+              { location: new go.Point(300, 660) },
+              $(go.TextBlock, "δ = Q x Σ → Q", {
+                font: " 10pt sans-serif",
+              })
+            )
+          ),
+          myDiagram.add(
+            $(
+              go.Part,
+              { location: new go.Point(300, 680) },
+              $(go.TextBlock, "q0 = {q0}", {
+                font: " 10pt sans-serif",
+              })
+            )
+          ),
+          myDiagram.add(
+            $(
+              go.Part,
+              { location: new go.Point(300, 700) },
+              $(go.TextBlock, "F = {q7}", {
+                font: " 10pt sans-serif",
+              })
+            )
+          )
+        )
+
+        var nodeDataArray = [
+          { key: "q0", loc: "350 500", group: "Start" },
+          { key: "Start", isGroup: true },
+          { key: "End", isGroup: true },
+          { key: "q1", loc: "450 500" },
+          { key: "q2", loc: "500 450" },
+          { key: "q3", loc: "500 550" },
+          { key: "q4", loc: "600 550" },
+          { key: "q5", loc: "600 450" },
+          { key: "q6", loc: "700 500" },
+          { key: "q7", loc: "800 500", group: "End" },
+        ]
+        var linkDataArray = [
+          { to: "q1", from: "q0", text: "B" },
+          { to: "q2", from: "q1", text: "T" },
+          { to: "q2", from: "q2", text: "S" },
+          { to: "q3", from: "q1", text: "P" },
+          { to: "q3", from: "q3", text: "T" },
+          { to: "q4", from: "q3", text: "V" },
+          { to: "q5", from: "q2", text: "X" },
+          { to: "q3", from: "q5", text: "X" },
+          { to: "q5", from: "q4", text: "P" },
+          { to: "q6", from: "q5", text: "S" },
+          { to: "q6", from: "q4", text: "V" },
+          { to: "q7", from: "q6", text: "E" },
+        ]
+        myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray)
+        var valid = [
+          "BTSSXXTVVE",
+          "BPVVE",
+          "BTXXVPSE",
+          "BTSXSE",
+          "BTXSE",
+          "BPVPXVPXVPXVVE",
+          "BTSXXVPSE",
+          "BPVPXVPXTVVE",
+          "BPTTVPXVVE",
+          "BPTTVVE",
+          "BPTVVE",
+          "BTXXTTVVE",
+        ]
+        var invalid = [
+          "BTSSPXSE",
+          "BXPVVBS",
+          "BSTVSPPS",
+          "BBXVSPXSSSS",
+          "BXSTTTVBXXSTE",
+          "BPTVVB",
+          "BTXXVVSE",
+          "BPVSPSE",
+          "BTSSSE",
+          "BPPVVV",
+        ]
+
+        document
+          .getElementById("makevalid")
+          .addEventListener("click", function () {
+            result = valid[Math.floor(Math.random() * valid.length)]
+            document.getElementById("input").value = result
+            testNum(result)
+          })
+
+        document
+          .getElementById("makeinvalid")
+          .addEventListener("click", function () {
+            result = invalid[Math.floor(Math.random() * invalid.length)]
+            document.getElementById("input").value = result
+            testNum(result)
+          })
+
+        document.getElementById("test").addEventListener("click", function () {
+          result = document.getElementById("input").value
+          testNum(result)
+        })
+        function isInArray(array, search) {
+          return array.indexOf(search) >= 0
+        }
+
+        /*function testWord(val) {
+          word = document.getElementById("input").value
+          for (let i = 0; i < word.length; i++) {
+            switch (word) {
+              case "B": {
+                if (currentState == "q0") {
+                  currentState = "q1"
+                  console.log("q0->q1")
+                  continue
+                } else {
+                  console.log("q0->false")
+                  return false
+                }
+              }
+              case "T": {
+                if (currentState == "q1") {
+                  currentState = "q2"
+                  document.write("q1-q2")
+                  continue
+                } else {
+                  console.log("q1->false")
+                  return false
+                }
+              }
+              case "S": {
+                if (currentState == "q2") {
+                  currentState = "q2"
+                  console.log("q2->q2")
+                  continue
+                } else if (currentState == "q5") {
+                  currentState = "q6"
+                  console.log("q5->q6")
+                } else {
+                  console.log("q2->false")
+                  return false
+                }
+              }
+
+              case "X": {
+                if (currentState == "q2") {
+                  currentState = "q5"
+                  console.log("q2->q5")
+                  continue
+                } else if (currentState == "q5") {
+                  console.log("q3->q5")
+                  currentState = "q3"
+                } else {
+                  console.log("q2/q5->false")
+                  return false
+                }
+              }
+              case "V": {
+                if (currentState == "q3") {
+                  currentState = "q4"
+                  console.log("q3->q4")
+                  continue
+                } else if (currentState == "q4") {
+                  currentState = "q6"
+                  console.log("q4->q6")
+                } else {
+                  console.log("q3/q4->false")
+                  return false
+                }
+              }
+              case "E": {
+                if (currentState == "q6") {
+                  currentState = "q7"
+                  console.log("q6->q7")
+                  console.log("word correct")
+                } else {
+                  console.log("q6->false")
+                  return false
+                }
+              }
+            }
+          }
+        }*/
+
+        function testNum(value) {
+          var result
+          var x = document.getElementById("myTable").getElementsByTagName("td")
+          if (isInArray(valid, value)) {
+            result = "Correct"
+            x[35].style.backgroundColor = "green"
+          } else {
+            result = "Not Correct"
+            x[35].style.backgroundColor = "red"
+          }
+          document.getElementById("output").value = result
+        }
+      }
+    </script>
+  </head>
+
+  <body onload="init()">
+    <h1>Projektaufgabe 1: DEA</h1>
+    <div class="div-1">
+      <button name="Make Valid Word" id="makevalid">Make Valid Word</button>
+
+      <button name="Make Invalid Word" id="makeinvalid">
+        Make Invalid Word
+      </button>
+      <button name="Test Word" id="test">Test Word</button>
+      <a href="https://en.wikipedia.org/wiki/Deterministic_finite_automaton"
+        ><button>Theory</button></a
+      >
+      <a href="documentation.html"> <button>Documentation</button> </a>
+
+      <form>
+        <input
+          type="text"
+          id="input"
+          name=""
+          onkeyup="testWord(this.value);"
+          placeholder="Enter Word"
+          required
+        />
+        <input type="text" id="output" name="" placeholder="Output" />
+      </form>
+    </div>
+
+    <h2>Reber Grammar DFA:</h2>
+    <div class="div-2">
+      <div
+        id="myDiagramDiv"
+        style="
+          width: 600px;
+          height: 330px;
+          background-color: #fdfdfd;
+          border: solid 1px black;
+          align-content: center;
+        "
+      ></div>
+    </div>
+    <table id="myTable">
+      <tr>
+        <th>Q</th>
+        <th>∑</th>
+        <th>Q</th>
+      </tr>
+      <tr id="r1">
+        <td>q0</td>
+        <td>B</td>
+        <td>q1</td>
+      </tr>
+      <tr id="r2">
+        <td>q1</td>
+        <td>T</td>
+        <td>q2</td>
+      </tr>
+      <tr id="r3">
+        <td>q1</td>
+        <td>P</td>
+        <td>q3</td>
+      </tr>
+      <tr id="r4">
+        <td>q2</td>
+        <td>S</td>
+        <td>q2</td>
+      </tr>
+      <tr id="r5">
+        <td>q3</td>
+        <td>T</td>
+        <td>q3</td>
+      </tr>
+      <tr id="r6">
+        <td>q2</td>
+        <td>X</td>
+        <td>q5</td>
+      </tr>
+      <tr id="r7">
+        <td>q3</td>
+        <td>V</td>
+        <td>q4</td>
+      </tr>
+      <tr id="r8">
+        <td>q4</td>
+        <td>P</td>
+        <td>q5</td>
+      </tr>
+      <tr id="r9">
+        <td>q5</td>
+        <td>X</td>
+        <td>q3</td>
+      </tr>
+      <tr id="r10">
+        <td>q4</td>
+        <td>V</td>
+        <td>q6</td>
+      </tr>
+      <tr id="r11">
+        <td>q5</td>
+        <td>S</td>
+        <td>q6</td>
+      </tr>
+      <tr id="r12">
+        <td>q6</td>
+        <td>E</td>
+        <td>q7</td>
+      </tr>
+    </table>
+    <!--<script>
+      var valid = [
+        "BTSSXXTVVE",
+        "BPVVE",
+        "BTXXVPSE",
+        "BTSXSE",
+        "BTXSE",
+        "BPVPXVPXVPXVVE",
+        "BTSXXVPSE",
+        "BPVPXVPXTVVE",
+        "BPTTVPXVVE",
+        "BPTTVVE",
+        "BPTVVE",
+        "BTXXTTVVE",
+      ]
+      var invalid = [
+        "BTSSPXSE",
+        "BXPVVBS",
+        "BSTVSPPS",
+        "BBXVSPXSSSS",
+        "BXSTTTVBXXSTE",
+        "BPTVVB",
+        "BTXXVVSE",
+        "BPVSPSE",
+        "BTSSSE",
+        "BPPVVV",
+      ]
+      window.onload = function () {
+        document
+          .getElementById("makevalid")
+          .addEventListener("click", function () {
+            alert("works")
+          })
+        document
+          .getElementById("makevalid")
+          .addEventListener("click", function () {
+            result = valid[Math.floor(Math.random() * valid.length)]
+            document.getElementById("input").value = result
+            testNum(result)
+          })
+
+        document
+          .getElementById("makeinvalid")
+          .addEventListener("click", function () {
+            result = invalid[Math.floor(Math.random() * invalid.length)]
+            document.getElementById("input").value = result
+            testNum(result)
+          })
+
+        function isInArray(array, search) {
+          return array.indexOf(search) >= 0
+        }
+
+        function testNum(value) {
+          var result
+          if (isInArray(valid, value)) {
+            result = "Correct"
+          } else {
+            result = "Not Correct"
+          }
+          document.getElementById("output").value = result
+        }
+      }
+    </script>-->
+  </body>
+</html>

@@ -1,0 +1,85 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+h2 {
+  text-align: center;
+}
+.div-1 {
+  text-align: center;
+  margin: 0 auto;
+  font-size: 1.5rem;
+  border: 1px solid black;
+  align-content: center;
+  padding: 0.5rem;
+}
+.div-2 {
+  text-align: center;
+  float: left;
+}
+
+table {
+  border: 0px solid #ff0101;
+  background-color: #ffffff;
+  width: 50%;
+  position: relative;
+
+  text-align: center;
+  border-collapse: collapse;
+  float: left;
+}
+table td,
+table th {
+  border: 1px solid #aaaaaa;
+  padding: 2.4px;
+  height: 0.5px;
+}
+table tbody td {
+  font-size: 13px;
+  color: #333333;
+}
+table tr:nth-child(even) {
+  background: #d0d4d5;
+}
+table thead {
+  background: #1c6ea4;
+  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1c6ea4 100%);
+  background: -webkit-linear-gradient(
+    top,
+    #5592bb 0%,
+    #327cad 66%,
+    #1c6ea4 100%
+  );
+  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1c6ea4 100%);
+  border-bottom: 2px solid #444444;
+}
+table thead th {
+  font-size: 21px;
+  font-weight: normal;
+  color: #ffffff;
+  text-align: center;
+  border-left: 2px solid #000000;
+}
+table thead th:first-child {
+  border-left: none;
+}
+
+table tfoot td {
+  font-size: 5rem;
+}
+table tfoot .links {
+  text-align: right;
+}
+table tfoot .links a {
+  display: inline-block;
+  background: #7391a4;
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
