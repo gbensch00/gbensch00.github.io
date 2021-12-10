@@ -83,17 +83,17 @@ async function tourClick() {
         {
           element: document.querySelector("#btn-play"),
           intro:
-            "Startet das automatische generieren des arithmetischen Ausdrucks.",
+            "Startet das automatische Generieren des arithmetischen Ausdrucks.",
         },
         {
           element: document.querySelector("#btn-genInvalid"),
           intro:
-            "Generiert einen ungüligen ausdruck indem ein gültiger ausdruck generiert wird und ein zeichen gelöscht wird",
+            "Generiert einen ungüligen Ausdruck indem ein gültiger Ausdruck generiert wird und ein Zeichen gelöscht wird",
         },
         {
           element: document.querySelector("#btn-pause"),
           intro:
-            "Pausiert die generierung. Zum erneuten starten Start oder Schritt drücken.",
+            "Pausiert die Generierung. Zum erneuten Starten Start oder Schritt drücken.",
         },
 
         {
@@ -104,7 +104,7 @@ async function tourClick() {
         {
           element: document.querySelector("#btn-clear"),
           intro:
-            "Bricht das generieren ab und versetzt die Applikation in den Initialzustand. Dies muss immer getan werden, bevor ein neuer Ausdruck generiert werden kann.",
+            "Bricht das Generieren ab und versetzt die Applikation in den Initialzustand. Dies muss immer getan werden, bevor ein neuer Ausdruck generiert werden kann.",
         },
         {
           element: document.querySelector("#drp-speed"),
