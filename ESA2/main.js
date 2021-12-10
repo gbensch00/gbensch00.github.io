@@ -145,7 +145,7 @@ async function stepClick() {
   appState = appStates.STEP
   setupButtonStates()
   document.getElementById("output").innerHTML =
-    "Generierter Ausdruck : \n Auf > clicken um den nächsten schritt durchzuführen"
+    "Generierter Ausdruck : \n Auf Schritt clicken um den nächsten schritt durchzuführen"
   currentState = nextState(currentState)
   if (isTerminal(currentState)) {
     markLastRow()
