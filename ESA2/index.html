@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+    <meta charset="utf-8" />
+    <script src="main.js" async defer></script>
+    <script
+      src="https://unpkg.com/intro.js/minified/intro.min.js"
+      async
+      defer
+    ></script>
+    <link
+      rel="stylesheet"
+      href=" https://unpkg.com/intro.js/minified/introjs.min.css"
+    />
+    <title>ESA2</title>
+  </head>
+  <body>
+    <div>
+      <h1>ESA 2: Grammatik für arithmethische Ausdrücke</h1>
+    </div>
+
+    <div class="div-1">
+      <div id="animationgroup" class="btn-group">
+        <button
+          id="btn-play"
+          type="button"
+          class="btn btn-primary"
+          onclick="playClick()"
+        >
+          Gültiger Ausdruck
+        </button>
+        <button
+          id="btn-genInvalid"
+          class="btn btn-danger"
+          onclick="genInvalid()"
+        >
+          Ungültiger Ausdruck
+        </button>
+        <button
+          id="btn-pause"
+          type="button"
+          class="btn btn-secondary"
+          onclick="pauseClick()"
+        >
+          Pause
+        </button>
+        <button
+          id="btn-step"
+          type="button"
+          class="btn btn-secondary"
+          onclick="stepClick()"
+        >
+          step
+        </button>
+
+        <button
+          id="btn-clear"
+          type="button"
+          onclick="window.location.reload();"
+        >
+          Applikation zurücksetzen
+        </button>
+
+        <button id="btn-tour" onclick="tourClick();" class="btn btn-info">
+          Tour starten
+        </button>
+
+        <button
+          id="btn-doc"
+          onclick="window.location.href='doc.html';"
+          class="btn btn-info"
+        >
+          Dokumentation öffnen
+        </button>
+      </div>
+      <div>
+        <div>
+          <label for="lengthInput">Maximale Ausdruckslänge eingeben: </label>
+          <input
+            type="text"
+            id="lengthInput"
+            name="lengthInput"
+            value="50"
+            placeholder="50"
+          />
+        </div>
+        <label for="drp-speed">Geschwindigkeit: </label>
+        <select id="drp-speed" class="form-select">
+          <option value="5000">Langsam</option>
+          <option selected value="1000">Normal</option>
+          <option value="50000">Schnell</option>
+        </select>
+      </div>
+      <div id="output">
+        Generierter Ausdruck: (Un)gültiger Ausdruck Drücken um einen Ausdruck zu
+        generieren
+      </div>
+    </div>
+    <div class="container">
+      <div class="tableitem">
+        <table id="output-table" class="stateTable">
+          <thead>
+            <tr>
+              <th>Schritt</th>
+              <th>Alter Zustand</th>
+              <th>Neuer Zustand</th>
+              <th>Regel</th>
+            </tr>
+          </thead>
+          <tbody id="output-table-body">
+            <tr class="success">
+              <td>Drücke Start um die Tabelle zu füllen</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grammarpre">
+        <pre id="grammar"><code>    G = {V, Σ , R , S} mit:
+
+    V = {F, A, O, Z}
+    &sum;= { +, -, *, /, (, ), 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+    R = {
+      F → FOF | (A) | Z,
+      Z → 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
+      O → + | - | * | /,
+      A → (F),
+        }
+    S = {F}</code></pre>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 1;
+  padding: 1;
+}
+pre {
+  font-size: 1rem;
+  font-style: bold;
+  border: 1px solid black;
+  width: fit-content;
+  background-color: rgb(236, 234, 234);
+  font-family: monospace;
+}
+div {
+  margin: 1em;
+  padding-right: 1em;
+}
+.div-1 {
+  text-align: center;
+  margin: 0 auto;
+  font-size: 1.5rem;
+  border: 1px solid black;
+  align-content: center;
+
+  padding: 0.5rem;
+  width: 70%;
+}
+.btn-group {
+  padding: 0.2rem;
+}
+
+label {
+  font-size: 1.5rem;
+  text-align: justify;
+}
+
+button {
+  margin-right: 0.3rem;
+  font-size: 1rem;
+  padding: 0.8rem;
+}
+h1 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.success-row {
+  background-color: lightgreen;
+}
+.failure-row {
+  background-color: lightcoral;
+}
+
+.stateTable {
+  border-collapse: collapse;
+  font-size: 12px;
+  width: 100%;
+}
+.stateTable th {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: left;
+  background-color: #4caf50;
+  color: white;
+}
+.stateTable td,
+.stateTable th {
+  border: 1px solid #ddd;
+  padding: 4px;
+}
+.container {
+  display: grid;
+  grid-template-areas: "tab tab gram gram";
+}
+
+.grammarpre {
+  grid-area: gram;
+}
+.tableitem {
+  grid-area: tab;
+}
+#appStates.STOPPED {
+  background-color: grey;
+}
+.enabled {
+  background-color: lightgreen;
+}
+.disabled {
+  background-color: lightgrey;
+}
+div.introjs-helperLayer {
+  padding: 0px 0px 0px 0px !important;
+  margin: 0 !important;
+}

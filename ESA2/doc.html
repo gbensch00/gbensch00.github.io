@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="docstyles.css" />
+    <meta charset="utf-8" />
+    <script src="main.js" async defer></script>
+    <title>ESA2</title>
+  </head>
+  <body>
+    <h1>Dokumentation ESA 2</h1>
+    <div>
+      <h2>Aufgabenstellung</h2>
+      <p>
+        Es soll eine Grammatik für arithmetische Ausdrücke dargestellt werden,
+        für die folgende Regeln gelten:
+      </p>
+      <ul>
+        <li>Es werden nur einstellige natürliche Zahlen verwendet</li>
+        <li>Es sollen die Operanden +, -, , *, / erzeugt werden</li>
+        <li>Klammern können beliebig tief geschachtelt werden</li>
+        <li>Die Abkürzungen A, O, Z sollen verwendet werden</li>
+      </ul>
+      <h2>Technische Umsetzung</h2>
+      <p>
+        Die Webseite wurde mit HTML, CSS und Javascript erstellt. Das Intro
+        wurde mit IntroJS erstellt.
+      </p>
+      <h2>Logik</h2>
+      <p>
+        Aus den Vorgaben ergibt sich die folgende, in Javascript als Objekt
+        angelegte Grammatik, die für jeden Zustand die gültigen Folgezustände
+        definiert:
+      </p>
+      <pre>
+        const states = {
+  S: {
+    followers: ["FOF", "A", "Z"],
+  },
+  Z: {
+    followers: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+  },
+  O: {
+    followers: ["+", "-", "*", "/"],
+  },
+  A: {
+    followers: ["(F)"],
+  },
+}
+      </pre>
+      <p>
+        Für die Generierung habe ich die Funktion
+        <i>string.replaceall()</i> benutzt. Bei der Generierung werden dann so
+        lange in der Zeichenkette Zeichen mit ihren Folgezuständen ersetzt bis
+        keine Terminalzeichen (A, F, Z, O) mehr vorhanden sind. Die
+        Folgezustände werden mithilfe des Fisher-Yates Shuffle zufällig
+        ausgewählt. Ein falscher Ausdruck kann generiert werden, indem ein
+        richtiger Ausdruck generiert wird und das letzte Zeichen gelöscht wird.
+        Die Auswahl eines nächsten Zustandes sieht beispielsweise so aus:
+      </p>
+      <pre>
+        ...
+        state = state.replaceAll("F", () =&gt; {   
+    followers = shuffle(states.S.followers)
+    ...
+    return followers[0]
+  })
+  ...
+      </pre>
+    </div>
+  </body>
+  <a href="index.html">Hier geht es zurück zur Hauptseite</a>
+</html>
