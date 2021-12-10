@@ -145,7 +145,7 @@ async function stepClick() {
   appState = appStates.STEP
   setupButtonStates()
   document.getElementById("output").innerHTML =
-    "Generierter Ausdruck : \n Auf Schritt clicken um den nächsten schritt durchzuführen"
+    "Generierter Ausdruck : \n Schritt klicken um den nächsten Schritt durchzuführen"
   currentState = nextState(currentState)
   if (isTerminal(currentState)) {
     markLastRow()
@@ -171,23 +171,6 @@ async function playClick() {
   appState = appStates.PAUSED
   setupButtonStates()
 }
-
-/*async function invalidClick() {
-  pauseRequested = false
-  if (appState != appStates.PAUSED) {
-    clearTable()
-  }
-  appState = appStates.RUNNING
-  setupButtonStates()
-  document.getElementById("output").innerHTML =
-    "Generierter falscher Ausdruck : \n Generiere ..."
-  var output = await genInvalid()
-
-  document.getElementById("output").innerHTML =
-    "Generierter falscher Ausdruck : \n" + output.currentState
-  appState = appStates.PAUSED
-  setupButtonStates()
-}*/
 
 async function genValid() {
   while (!isTerminal(currentState)) {
@@ -215,41 +198,7 @@ async function genValid() {
   }
   return output
 }
-/*async function genInvalid() {
-  while (!isTerminal(currentState)) {
-    currentState = nextState(currentState)
-    if (currentState.length > lengthInput) {
-      alert("Maximale länge überschritten")
-      break
-    }
-    if (pauseRequested) {
-      break
-    }
-    await new Promise((r) =>
-      setTimeout(r, document.getElementById("drp-speed").value)
-    )
-  }
-  if (currentState.length == 1) {
-    currentState = "-"
-  } else {
-    currentState = removeByIndex(
-      getRandomIntInclusive(0, currentState.length - 1)
-    )
-  }
-  var output = {
-    currentState,
-    numberOpen: (currentState.match(/\(/g) || []).length,
-    numberClosed: (currentState.match(/\)/g) || []).length,
-    isValid: isTerminal(currentState) && eval(currentState),
-  }
-  if (!pauseRequested) {
-    var table = document.getElementById("output-table")
-    var rows = table.getElementsByTagName("tr")
 
-    rows[rows.length - 1].className = "failure-row"
-  }
-  return output
-}*/
 function genInvalid() {
   pauseRequested = false
   if (appState != appStates.PAUSED) {
@@ -357,39 +306,6 @@ function nextState(state, addToTable = true) {
   }
   return state
 }
-
-/**function genInvalid() {
-  pauseRequested = false
-  if (appState != appStates.PAUSED) {
-    clearTable() //Only clear table if we start a new sim
-  }
-  appState = appStates.RUNNING
-  setupButtonStates()
-
-  var state = currentState
-  while (!isTerminal(state)) {
-    state = nextState(state, false)
-    if (state.length > 10000) {
-      alert("Maximale länge überschritten")
-      break
-    }
-    if (pauseRequested) {
-      break
-    }
-  }
-  if (state.length == 1) {
-    state = "-"
-  } else {
-    state = removeByIndex(getRandomIntInclusive(0, state.length - 1))
-  }
-  document.getElementById("output").innerHTML =
-    "Generierter ungültiger Ausdruck : \n" + state
-  appState = appStates.STOPPED
-  setupButtonStates()
-}
-function removeByIndex(str, index) {
-  return str.slice(0, index) + str.slice(index + 1)
-}**/
 
 /**
  * Performs a fisher yates shuffle of a given array
