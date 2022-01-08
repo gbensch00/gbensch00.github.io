@@ -4,6 +4,8 @@
   box-sizing: border-box;
   margin: 1;
   padding: 1;
+}
+html {
   background-color: rgb(221, 221, 221);
 }
 h1 {
