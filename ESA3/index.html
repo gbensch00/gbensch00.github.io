@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="generator.js" async defer></script>
+    <script src="automaton.js" async defer></script>
+    <script src="utils.js" async defer></script>
+    <script src="main.js" async defer></script>
+    <script
+      src="https://unpkg.com/gojs/release/go-debug.js"
+      async
+      defer
+    ></script>
+
+    <script
+      src="https://unpkg.com/intro.js/minified/intro.min.js"
+      async
+      defer
+    ></script>
+    <link
+      rel="stylesheet"
+      href=" https://unpkg.com/intro.js/minified/introjs.min.css"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ESA 3</title>
+  </head>
+  <header>
+    <title>ESA 3 : Kellerautomat</title>
+  </header>
+
+  <body>
+    <h1>ESA 3 : Kellerautomat zur Erkennung arithmetischer Ausdrücke</h1>
+    <div id="button_panel">
+      <button
+        id="btn-genValid"
+        class="rec_button primary_button"
+        onclick="genValid()"
+      >
+        Gültiger Ausdruck
+      </button>
+      <button
+        id="btn-genInvalid"
+        class="rec_button secondary_button"
+        onclick="genInvalid()"
+      >
+        Ungültiger Ausdruck
+      </button>
+      <input
+        type="text"
+        size="50"
+        placeholder="Button drücken oder einen Ausdruck eingeben"
+        id="input_expression"
+        onchange="setupButtonStates('STOPPED'); checkInput();"
+      />
+      <button id="btn-play" class="tertiary_button" onclick="playClick();">
+        Start
+      </button>
+      <button id="btn-pause" class="tertiary_button" onclick="playClick();">
+        Pause
+      </button>
+      <button id="btn-step" class="tertiary_button" onclick="stepClick();">
+        Schritt
+      </button>
+      <button
+        id="btn-cancel"
+        onclick="window.location.reload();"
+        class="tertiary_button"
+      >
+        Anfangszustand
+      </button>
+      <select id="drp-speed">
+        <option value="5">Schnell</option>
+        <option selected="selected" value="500">Normal</option>
+        <option value="5000">Langsam</option>
+      </select>
+      <button
+        id="btn-tour"
+        class="rec_button tertiary_button"
+        onclick="tourClick();"
+      >
+        Tour
+      </button>
+      <button
+        id="btn-doc"
+        class="rec_button tertiary_button"
+        onclick="window.location.href='documentation.html';"
+      >
+        Dokumentation
+      </button>
+    </div>
+
+    <div id="main_content">
+      <div id="column_content">
+        <svg
+          width="750"
+          height="494"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <ellipse
+            id="node_q0"
+            stroke="black"
+            stroke-width="2"
+            fill="none"
+            cx="41.5"
+            cy="188.5"
+            rx="39"
+            ry="39"
+          />
+          <text x="31.5" y="194.5" font-family="Times New Roman" font-size="20">
+            q0*
+          </text>
+          <ellipse
+            id="node_q1"
+            stroke="black"
+            stroke-width="2"
+            fill="none"
+            cx="357.5"
+            cy="41.5"
+            rx="39"
+            ry="39"
+          />
+          <text x="347.5" y="47.5" font-family="Times New Roman" font-size="20">
+            q1
+          </text>
+          <ellipse
+            id="node_q2"
+            stroke="black"
+            stroke-width="2"
+            fill="none"
+            cx="357.5"
+            cy="41.5"
+            rx="33"
+            ry="33"
+          />
+          <ellipse
+            id="node_q2"
+            stroke="black"
+            stroke-width="2"
+            fill="none"
+            cx="363.5"
+            cy="379.5"
+            rx="39"
+            ry="39"
+          />
+          <text
+            x="353.5"
+            y="385.5"
+            font-family="Times New Roman"
+            font-size="20"
+          >
+            q2
+          </text>
+          <ellipse
+            id="node_q3"
+            stroke="black"
+            stroke-width="2"
+            fill="none"
+            cx="363.5"
+            cy="379.5"
+            rx="33"
+            ry="33"
+          />
+          <ellipse
+            id="node_q3"
+            stroke="black"
+            stroke-width="2"
+            fill="none"
+            cx="586.5"
+            cy="172.5"
+            rx="39"
+            ry="39"
+          />
+          <text
+            x="576.5"
+            y="178.5"
+            font-family="Times New Roman"
+            font-size="20"
+          >
+            q3
+          </text>
+          <g id="t_q0_q1_0">
+            <path
+              stroke="black"
+              stroke-width="2"
+              fill="none"
+              d="M 74.955,168.458 A 1487.333,1487.333 0 0 1 320.619,54.178"
+            />
+            <polygon
+              fill="black"
+              stroke-width="2"
+              points="320.619,54.178 311.401,52.17 314.776,61.584"
+            />
+            <text
+              x="121.5"
+              y="96.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              Z, &#949; &#8594; &#949;
+            </text>
+          </g>
+          <g id="t_q1_q2_0">
+            <path
+              stroke="black"
+              stroke-width="2"
+              fill="none"
+              d="M 373.083,77.234 A 394.39,394.39 0 0 1 377.805,343.235"
+            />
+            <polygon
+              fill="black"
+              stroke-width="2"
+              points="377.805,343.235 385.105,337.26 375.633,334.055"
+            />
+            <text
+              x="403.5"
+              y="215.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              ), X &#8594; &#949;
+            </text>
+          </g>
+          <g id="t_q2_q1_0">
+            <path
+              stroke="black"
+              stroke-width="2"
+              fill="none"
+              d="M 348.572,343.486 A 412.205,412.205 0 0 1 343.859,78.021"
+            />
+            <polygon
+              fill="black"
+              stroke-width="2"
+              points="343.859,78.021 336.656,84.113 346.179,87.165"
+            />
+            <text
+              x="249.5"
+              y="217.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              Z, &#949; &#8594; &#949;
+            </text>
+          </g>
+          <g id="t_q0_q2_0">
+            <path
+              stroke="black"
+              stroke-width="2"
+              fill="none"
+              d="M 325.642,370.162 A 582.779,582.779 0 0 1 67.846,217.246"
+            />
+            <polygon
+              fill="black"
+              stroke-width="2"
+              points="325.642,370.162 319.302,363.175 316.584,372.799"
+            />
+            <text
+              x="112.5"
+              y="331.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              (, &#949; &#8594; X
+            </text>
+          </g>
+          <g id="t_q2_q3_0">
+            <path
+              stroke="black"
+              stroke-width="2"
+              fill="none"
+              d="M 601.692,208.309 A 155.958,155.958 0 0 1 398.081,397.312"
+            />
+            <polygon
+              fill="black"
+              stroke-width="2"
+              points="601.692,208.309 599.064,217.369 608.685,214.642"
+            />
+            <text
+              x="562.5"
+              y="385.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              O, &#949; &#8594; &#949;; &#949;, &#949; &#8594; &#949;
+            </text>
+          </g>
+          <g id="t_q3_q2_0">
+            <polygon
+              stroke="black"
+              stroke-width="2"
+              points="557.916,199.033 392.084,352.967"
+            />
+            <polygon
+              fill="black"
+              stroke-width="2"
+              points="392.084,352.967 401.348,351.189 394.545,343.86"
+            />
+            <text
+              x="480.5"
+              y="296.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              Z, &#949; &#8594; &#949;; &#949;, &#949; &#8594; &#949;
+            </text>
+          </g>
+          <g id="t_q3_q1_0">
+            <path
+              stroke="black"
+              stroke-width="2"
+              fill="none"
+              d="M 396.203,37.238 A 198.335,198.335 0 0 1 570.556,136.977"
+            />
+            <polygon
+              fill="black"
+              stroke-width="2"
+              points="396.203,37.238 404.26,42.147 404.146,32.147"
+            />
+            <text
+              x="501.5"
+              y="54.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              Z, &#949; &#8594; &#949;
+            </text>
+          </g>
+          <g id="t_q1_q3_0">
+            <polygon
+              stroke="black"
+              stroke-width="2"
+              points="391.352,60.865 552.648,153.135"
+            />
+            <polygon
+              fill="black"
+              stroke-width="2"
+              points="552.648,153.135 548.186,144.822 543.221,153.502"
+            />
+            <text
+              x="395.5"
+              y="128.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              O, &#949; &#8594; &#949;
+            </text>
+          </g>
+          <g id="t_q3_q3_0">
+            <path
+              stroke="black"
+              stroke-width="2"
+              fill="none"
+              d="M 621.336,155.307 A 29.25,29.25 0 1 1 621.336,189.693"
+            />
+            <text
+              x="679.5"
+              y="178.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              ), X &#8594; &#949;
+            </text>
+            <polygon
+              fill="black"
+              stroke-width="2"
+              points="621.336,189.693 624.869,198.44 630.747,190.35"
+            />
+          </g>
+          <g id="t_q2_q2_0">
+            <path
+              stroke="black"
+              stroke-width="2"
+              fill="none"
+              d="M 380.693,414.336 A 29.25,29.25 0 1 1 346.307,414.336"
+            />
+            <text
+              x="328.5"
+              y="488.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              (, &#949; &#8594; X
+            </text>
+            <polygon
+              fill="black"
+              stroke-width="2"
+              points="346.307,414.336 337.56,417.869 345.65,423.747"
+            />
+          </g>
+        </svg>
+
+        <table id="output-table">
+          <thead>
+            <tr>
+              <th>Q</th>
+              <th>Σ<sub>e</sub></th>
+              <th>Γ<sub>e</sub></th>
+              <th>P(Q × Γ<sub>e</sub>)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="r_q0_q1_0">
+              <td>q0</td>
+              <td>Z</td>
+              <td>ε</td>
+              <td>{(q1,ε)}</td>
+            </tr>
+            <tr id="r_q0_q2_0">
+              <td>q0</td>
+              <td>(</td>
+              <td>ε</td>
+              <td>{(q2,X)}</td>
+            </tr>
+            <tr id="r_q1_q2_0">
+              <td>q1</td>
+              <td>)</td>
+              <td>X</td>
+              <td>{(q2,ε)}</td>
+            </tr>
+            <tr id="r_q1_q3_0">
+              <td>q1</td>
+              <td>O</td>
+              <td>ε</td>
+              <td>{(q3,ε)}</td>
+            </tr>
+            <tr id="r_q2_q1_0">
+              <td>q2</td>
+              <td>Z</td>
+              <td>ε</td>
+              <td>{(q1,ε)}</td>
+            </tr>
+            <tr id="r_q2_q2_0">
+              <td>q2</td>
+              <td>(</td>
+              <td>ε</td>
+              <td>{(q2,X)}</td>
+            </tr>
+            <tr id="r_q2_q2_1">
+              <td>q2</td>
+              <td>)</td>
+              <td>X</td>
+              <td>{(q2,ε)}</td>
+            </tr>
+            <tr id="r_q2_q3_0">
+              <td>q2</td>
+              <td>O</td>
+              <td>X</td>
+              <td>{(q3,ε)}</td>
+            </tr>
+            <tr id="r_q3_q1_0">
+              <td>q3</td>
+              <td>Z</td>
+              <td>ε</td>
+              <td>{(q1,ε)}</td>
+            </tr>
+            <tr id="r_q3_q2_0">
+              <td>q3</td>
+              <td>Z</td>
+              <td>ε</td>
+              <td>{(q2,ε)}</td>
+            </tr>
+            <tr id="r_q3_q2_1">
+              <td>q3</td>
+              <td>ε</td>
+              <td>ε</td>
+              <td>{(q2,ε)}</td>
+            </tr>
+            <tr id="r_q3_q3_0">
+              <td>q3</td>
+              <td>)</td>
+              <td>X</td>
+              <td>{(q2,ε)}</td>
+            </tr>
+          </tbody>
+        </table>
+        <table id="cellar-table">
+          <thead>
+            <tr>
+              <th>Stack</th>
+            </tr>
+          </thead>
+          <tbody id="cellar-table-body">
+            <tr></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <pre id="grammarPre">
+          Der Ausdruck wird mit dem oben gezeigten Kellerautomaten validiert: 
+          
+          K = (Q, Σ, Γ, δ, S, F) mit:
+
+          Q = {q0,q1,q2,q3} 
+          Σ = {Z, O, (, ), Ɛ} 
+          Γ = {X, Ɛ}
+          δ = siehe Tabelle 
+          S = q0 
+          F = {q1,q2}}
+        </pre>
+      </div>
+    </div>
+
+    <!-- <script src="./js/intro.min.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/generator.js"></script>
+    <script src="./js/automaton.js"></script> -->
+  </body>
+</html>

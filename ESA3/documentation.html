@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="docstyles.css" />
+    <meta charset="utf-8" />
+    <script src="main.js" async defer></script>
+    <title>ESA3 Dokumentation</title>
+  </head>
+  <body>
+    <h1>Dokumentation ESA 3</h1>
+    <div>
+      <h2>Aufgabenstellung</h2>
+      <p>
+        Es soll ein Kellerautomat erstellt werden, der korrekte und fehlerhafte
+        arithmetische Ausdrücke, die mit der Grammatik aus Aufgabe 2 erstellt
+        werden prüfen kann. Der Kellerautomat soll als Graph und als Tabelle
+        dargestellt werden.
+      </p>
+
+      <h2>Technische Umsetzung</h2>
+      <p>
+        Die Webseite wurde mit HTML, CSS und Javascript erstellt. Das Intro
+        wurde mit IntroJS erstellt. Der Graph ist eine SVG. Um die SVG zu erstellen habe ich folgende Webseite benutzt: <a href="//www.cs.unc.edu/~otternes/comp455/fsm_designer/">https://www.cs.unc.edu/~otternes/comp455/fsm_designer/</a>
+      </p>
+      <h2>Logik</h2>
+      <p>Siehe Aufgabe 2 für die Logik der Grammatik. Für die Aufgabe habe ich den folgenden Kellerautomaten definiert:
+        <pre>
+          K = (Q, Σ, Γ, δ, S, F) mit:
+          Q = {q0, q1, q2, q3}
+          Σ = {Z, O, (, )}
+          Γ = {X}
+          δ = { {q0, Z ,ε}-&gt; {(q1,ε)}, {q0, ( ,ε}-&gt; {(q2,X)}, {q1, ) ,X}-&gt; {(q2,ε)}, {q1, O ,ε}-&gt; {(q3,ε)},
+              {q2, Z ,ε}-&gt; {(q1,ε)}, {q2, ( ,ε}-&gt; {(q2,X)}, {q2, ) ,X}-&gt; {(q2,ε)},
+              {q2, O ,X}-&gt; {(q3,ε)}, {q3, Z ,ε}-&gt; {(q1,ε)}, {q3, ( ,ε}-&gt; {(q2,X)} }
+          S = q0
+          F = {q1, q2}
+        </pre>
+        Der Automat ist als ES6 Klasse definiert. Die Animation wurde durch die Veränderung von CSS Klassen realisiert.
+      </p>
+    </div>
+  </body>
+  <a href="index.html">Hier geht es zurück zur Hauptseite</a>
+</html>

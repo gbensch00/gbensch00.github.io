@@ -1,0 +1,35 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+div {
+  display: block;
+  margin: auto;
+  border: 1px solid black;
+  padding: 1rem;
+  width: 75%;
+}
+h1 {
+  text-align: center;
+  font-size: 2rem;
+}
+p {
+  text-align: justify;
+}
+a {
+  text-align: center;
+}
+pre {
+  font-size: 1rem;
+  font-style: bold;
+  border: 1px solid black;
+  width: fit-content;
+  background-color: rgb(236, 234, 234);
+  font-family: monospace;
+}
+html > a {
+  position: fixed;
+  bottom: 0;
+}

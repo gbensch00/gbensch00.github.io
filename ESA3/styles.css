@@ -1,0 +1,162 @@
+* {
+  font-size: 1rem;
+  font-family: sans-serif;
+  box-sizing: border-box;
+  margin: 1;
+  padding: 1;
+  background-color: rgb(221, 221, 221);
+}
+h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+pre {
+  font-size: 1rem;
+  font-style: bold;
+  border: 1px solid black;
+  width: fit-content;
+  background-color: rgb(219, 218, 218);
+  font-family: monospace;
+}
+
+#button_panel {
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+
+  margin: 1rem;
+  width: 100%;
+}
+#main_content {
+  display: flex;
+  flex-direction: column;
+}
+#column_content {
+  display: flex;
+  flex-direction: row;
+}
+table {
+  border-collapse: collapse;
+  flex-grow: 1;
+}
+#cellar-table {
+  flex-grow: 0;
+  align-self: flex-start;
+}
+table td,
+table th {
+  border: 1px solid black;
+  padding: 8px;
+  transition: background-color 0.2s;
+  animation-iteration-count: 3;
+}
+
+.red td {
+  background-color: red !important;
+}
+
+.green td {
+  background-color: green !important;
+}
+.disabled {
+  opacity: 0.8;
+}
+table tr:nth-child(even) {
+  background-color: lightblue;
+}
+
+table tr:hover {
+  background-color: #ddd;
+}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: rgb(137, 250, 137);
+  color: rgb(70, 70, 70);
+}
+.green > circle,
+.green > path,
+.green > marker > path {
+  stroke: green !important;
+}
+.red > circle,
+.red > path,
+.red > marker > path {
+  stroke: red !important;
+}
+
+.primary_button {
+  background-color: lightgreen;
+  color: white;
+  border: 2px solid lightgreen;
+}
+.primary_button:hover {
+  background-color: white;
+  color: black;
+  border: 2px solid lightgreen;
+}
+.secondary_button {
+  background-color: lightcoral;
+  color: rgb(255, 255, 255);
+  border: 2px solid lightcoral;
+}
+.secondary_button:hover {
+  background-color: white;
+  color: black;
+  border: 2px solid lightcoral;
+}
+.rec_button {
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.tertiary_button {
+  background-color: #444444;
+  color: white;
+  border: 2px solid #555555;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.tertiary_button:hover {
+  background-color: white;
+  color: rgb(0, 0, 0);
+  border: 2px solid #555555;
+}
+.sq_button {
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.invalid {
+  border-color: red;
+}
+.pulsing {
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(0.99);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.99);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
