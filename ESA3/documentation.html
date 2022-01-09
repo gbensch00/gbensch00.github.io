@@ -35,7 +35,35 @@
           S = q0
           F = {q1, q2}
         </pre>
-        Der Automat ist als ES6 Klasse definiert. Die Animation wurde durch die Veränderung von CSS Klassen realisiert.
+        Der Automat ist als ES6 Klasse definiert:
+        <pre>
+          class Automaton {
+            cellar = []
+            currentState = null
+            word = ""
+            constructor(word) {
+            this.currentState = q0
+            this.word = word
+            }
+        </pre>
+        Die Knoten und Regeln wurden beispielsweise wie folgt festgelegt:
+        <pre>
+          ... 
+          const q3 = {
+  name: "q3",
+  follower: ["q1", "q3", "q2"],
+  isEnd: false,
+}
+const rules = {
+  "q0,q1": {
+    read: "Z",
+    readCellar: null,
+    writeCellar: null,
+    next: q1,
+  },
+  ...
+        </pre> 
+      Die Animation wurde durch die Veränderung von CSS Klassen realisiert. 
       </p>
     </div>
   </body>
