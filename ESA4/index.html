@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="tm.js" async defer></script>
+    <script src="grammar.js"></script>
+    <script
+      src="https://unpkg.com/intro.js/minified/intro.min.js"
+      async
+      defer
+    ></script>
+    <link
+      rel="stylesheet"
+      href=" https://unpkg.com/intro.js/minified/introjs.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ESA4 Turing Maschine</title>
+  </head>
+  <body>
+    <h1>ESA 4: Turing Maschine</h1>
+    <div id="button_panel">
+      <button
+        id="btn-genValid"
+        class="rec_button primary_button"
+        onclick="displayRightWord()"
+      >
+        Gültiger Reeber
+      </button>
+      <button
+        id="btn-genInvalid"
+        class="rec_button secondary_button"
+        onclick="displayWrongWord()"
+      >
+        Ungültiger Reeber
+      </button>
+
+      <input
+        type="text"
+        size="50"
+        placeholder="Button drücken oder einen Ausdruck eingeben"
+        id="input"
+        oninput="value = value.toUpperCase()"
+      />
+      <button id="btn-play" class="tertiary_button" onclick="runAuto()">
+        Start
+      </button>
+      <button id="btn-pause" class="tertiary_button" onclick="pause()">
+        Pause
+      </button>
+      <button id="btn-step" class="tertiary_button" onclick="run()">
+        Schritt
+      </button>
+      <button
+        id="btn-cancel"
+        onclick="window.location.reload();"
+        class="tertiary_button"
+        data-tooltip="Anfangszustand wiederherstellen, um neuen Automaten zu starten!"
+      >
+        Anfangszustand
+      </button>
+
+      <button
+        id="btn-tour"
+        class="rec_button tertiary_button"
+        onclick="tourClick();"
+      >
+        Tour
+      </button>
+      <button
+        id="btn-doc"
+        class="rec_button tertiary_button"
+        onclick="window.location.href='documentation.html';"
+      >
+        Dokumentation
+      </button>
+    </div>
+    <div id="status">
+      <span id="statusText">System bereit</span>
+    </div>
+    <div id="main-content">
+      <div id="tm-content">
+        <div id="grapre">
+          <svg
+            width="945"
+            height="390"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            id="graph"
+          >
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="33.5"
+              cy="184.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="27.5"
+              y="190.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              S
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="185.5"
+              cy="105.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="180.5"
+              y="111.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              q1
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="287.5"
+              cy="203.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="282.5"
+              y="209.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              q3
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="309.5"
+              cy="88.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="304.5"
+              y="94.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              q4
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="331.5"
+              cy="293.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="326.5"
+              y="299.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              q5
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="448.5"
+              cy="88.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="443.5"
+              y="94.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              q6
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="461.5"
+              cy="293.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="456.5"
+              y="299.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              q7
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="555.5"
+              cy="203.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="550.5"
+              y="209.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              q8
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="626.5"
+              cy="78.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="616.5"
+              y="84.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              q10
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="696.5"
+              cy="203.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="691.5"
+              y="209.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              q9
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="786.5"
+              cy="287.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="776.5"
+              y="293.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              q11
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="158.5"
+              cy="348.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="153.5"
+              y="354.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              q2
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="808.5"
+              cy="169.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="798.5"
+              y="175.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              q12
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="801.5"
+              cy="42.5"
+              rx="31"
+              ry="31"
+            />
+            <text
+              x="791.5"
+              y="48.5"
+              font-family="Times New Roman"
+              font-size="20"
+            >
+              q13
+            </text>
+            <ellipse
+              stroke="black"
+              stroke-width="1"
+              fill="none"
+              cx="801.5"
+              cy="42.5"
+              rx="25"
+              ry="25"
+            />
+            <g id="q0_q1">
+              <path
+                stroke="black"
+                stroke-width="1"
+                fill="none"
+                d="M 56.494,163.733 A 280.294,280.294 0 0 1 155.29,112.385"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="155.29,112.385 146.222,109.784 148.979,119.397"
+              />
+              <text
+                x="36.5"
+                y="123.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                B&#8594;_,R
+              </text>
+            </g>
+            <g id="q3_q4">
+              <polygon
+                stroke="black"
+                stroke-width="1"
+                points="293.325,173.052 303.675,118.948"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="303.675,118.948 297.261,125.866 307.083,127.745"
+              />
+              <text
+                x="305.5"
+                y="154.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                T&#8594;_,R
+              </text>
+            </g>
+            <g id="q4_q4">
+              <path
+                stroke="black"
+                stroke-width="1"
+                fill="none"
+                d="M 284.893,69.845 A 23.25,23.25 0 1 1 309.34,57.621"
+              />
+              <text
+                x="214.5"
+                y="16.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                S&#8594;_,R
+              </text>
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="309.34,57.621 315.584,50.549 305.719,48.91"
+              />
+            </g>
+            <g id="q3_q5">
+              <polygon
+                stroke="black"
+                stroke-width="1"
+                points="301.116,231.35 317.884,265.65"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="317.884,265.65 318.863,256.267 309.879,260.659"
+              />
+              <text
+                x="243.5"
+                y="265.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                P&#8594;_,R
+              </text>
+            </g>
+            <g id="q5_q5">
+              <path
+                stroke="black"
+                stroke-width="1"
+                fill="none"
+                d="M 345.166,321.19 A 23.25,23.25 0 1 1 317.834,321.19"
+              />
+              <text
+                x="301.5"
+                y="384.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                T&#8594;_,R
+              </text>
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="317.834,321.19 309.087,324.724 317.177,330.601"
+              />
+            </g>
+            <g id="q4_q6">
+              <polygon
+                stroke="black"
+                stroke-width="1"
+                points="340.5,88.5 417.5,88.5"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="417.5,88.5 409.5,83.5 409.5,93.5"
+              />
+              <text
+                x="347.5"
+                y="109.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                X&#8594;_,R
+              </text>
+            </g>
+            <g id="q6_q5">
+              <path
+                stroke="black"
+                stroke-width="1"
+                fill="none"
+                d="M 440.256,118.376 A 417.609,417.609 0 0 1 353.031,271.207"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="353.031,271.207 362.094,268.588 354.648,261.913"
+              />
+              <text
+                x="411.5"
+                y="217.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                X&#8594;_,R
+              </text>
+            </g>
+            <g id="q5_q7">
+              <polygon
+                stroke="black"
+                stroke-width="1"
+                points="362.5,293.5 430.5,293.5"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="430.5,293.5 422.5,288.5 422.5,298.5"
+              />
+              <text
+                x="365.5"
+                y="314.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                V&#8594;_,R
+              </text>
+            </g>
+            <g id="q6_q8">
+              <path
+                stroke="black"
+                stroke-width="1"
+                fill="none"
+                d="M 474.412,105.485 A 266.288,266.288 0 0 1 540.424,176.433"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="540.424,176.433 540.35,166.999 531.912,172.365"
+              />
+              <text
+                x="516.5"
+                y="129.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                S&#8594;_,R
+              </text>
+            </g>
+            <g id="q7_q8">
+              <polygon
+                stroke="black"
+                stroke-width="1"
+                points="483.892,272.061 533.108,224.939"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="533.108,224.939 523.872,226.86 530.788,234.083"
+              />
+              <text
+                x="513.5"
+                y="269.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                V&#8594;_,R
+              </text>
+            </g>
+            <g id="q8_q9">
+              <polygon
+                stroke="black"
+                stroke-width="1"
+                points="586.5,203.5 665.5,203.5"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="665.5,203.5 657.5,198.5 657.5,208.5"
+              />
+              <text
+                x="595.5"
+                y="224.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                E&#8594;_,R
+              </text>
+            </g>
+            <g id="q1_q2">
+              <polygon
+                stroke="black"
+                stroke-width="1"
+                points="182.077,136.31 161.923,317.69"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="161.923,317.69 167.776,310.291 157.837,309.186"
+              />
+              <text
+                x="40.5"
+                y="231.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                T&#8594;T,R;P&#8594;P,R
+              </text>
+            </g>
+            <g id="q2_q3">
+              <polygon
+                stroke="black"
+                stroke-width="1"
+                points="179.105,325.339 266.895,226.661"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="266.895,226.661 257.842,229.314 265.313,235.961"
+              />
+              <text
+                x="155.5"
+                y="267.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                B&#8594;_,R
+              </text>
+            </g>
+            <g id="q9_q10">
+              <path
+                stroke="black"
+                stroke-width="1"
+                fill="none"
+                d="M 676.335,179.975 A 287.136,287.136 0 0 1 636.021,107.986"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="636.021,107.986 634.218,117.246 643.555,113.664"
+              />
+              <text
+                x="587.5"
+                y="163.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                T&#8594;_,L
+              </text>
+            </g>
+            <g id="q9_q11">
+              <path
+                stroke="black"
+                stroke-width="1"
+                fill="none"
+                d="M 758.904,273.472 A 169.266,169.266 0 0 1 712.396,230.064"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="758.904,273.472 754.798,264.978 749.47,273.441"
+              />
+              <text
+                x="670.5"
+                y="274.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                P&#8594;_,L
+              </text>
+            </g>
+            <g id="q7_q6">
+              <polygon
+                stroke="black"
+                stroke-width="1"
+                points="459.234,263.54 448.766,118.46"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="448.766,111.46 444.282,119.76 454.262,119.127"
+              />
+              <text
+                x="449.5"
+                y="176.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                P&#8594;_,R
+              </text>
+            </g>
+            <g id="q10_q10">
+              <path
+                stroke="black"
+                stroke-width="1"
+                fill="none"
+                d="M 598.646,65.17 A 23.25,23.25 0 1 1 620.138,48.283"
+              />
+              <text
+                x="521.5"
+                y="14.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                _&#8594;_,L
+              </text>
+            </g>
+            <g id="q11_q11">
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="620.138,48.283 624.833,40.101 614.841,40.477"
+              />
+              <path
+                stroke="black"
+                stroke-width="1"
+                fill="none"
+                d="M 806.839,310.734 A 23.25,23.25 0 1 1 780.43,317.777"
+              />
+              <text
+                x="801.5"
+                y="378.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                _&#8594;_,L
+              </text>
+            </g>
+            <g id="q11_q12">
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="780.43,317.777 772.889,323.444 782.22,327.039"
+              />
+              <polygon
+                stroke="black"
+                stroke-width="1"
+                points="792.182,257.025 802.818,199.975"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="802.818,199.975 796.437,206.923 806.267,208.756"
+              />
+              <text
+                x="804.5"
+                y="237.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                P&#8594;_,R
+              </text>
+            </g>
+            <g id="q12_q12">
+              <path
+                stroke="black"
+                stroke-width="1"
+                fill="none"
+                d="M 838.06,160.572 A 23.25,23.25 0 1 1 833.567,187.532"
+              />
+              <text
+                x="884.5"
+                y="189.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                _&#8594;_,R
+              </text>
+            </g>
+            <g id="q10_q12">
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="833.567,187.532 835.614,196.742 842.742,189.728"
+              />
+              <path
+                stroke="black"
+                stroke-width="1"
+                fill="none"
+                d="M 656.813,84.938 A 345.079,345.079 0 0 1 785.161,149.112"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="785.161,149.112 782.023,140.216 775.789,148.035"
+              />
+              <text
+                x="729.5"
+                y="101.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                T&#8594;_,R
+              </text>
+            </g>
+            <g id="q12_q13">
+              <polygon
+                stroke="black"
+                stroke-width="1"
+                points="806.794,138.547 803.206,73.453"
+              />
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="803.206,73.453 798.654,81.716 808.639,81.166"
+              />
+              <text
+                x="810.5"
+                y="111.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                E&#8594;_,R
+              </text>
+            </g>
+            <g id="q13_q13">
+              <path
+                stroke="black"
+                stroke-width="1"
+                fill="none"
+                d="M 781.835,44.808 A 15,15 0 1 1 778.202,27.553"
+              />
+              <text
+                x="687.5"
+                y="41.5"
+                font-family="Times New Roman"
+                font-size="20"
+              >
+                _&#8594;_,R
+              </text>
+              <polygon
+                fill="black"
+                stroke-width="1"
+                points="778.202,27.553 772.943,19.721 768.858,28.848"
+              />
+            </g>
+          </svg>
+          <pre id="grammarpre">
+Q={q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13}
+&sum; = {B,T,P,S,X,V,E}
+S = {S}
+Qaccept = {q13}
+Γ = {_,B,T,P,S,X,V,E}
+                </pre
+          >
+        </div>
+        <table id="table">
+          <tr>
+            <th>Q</th>
+            <th>Γ</th>
+            <th>Q</th>
+            <th>Γ</th>
+            <th>(L/R)</th>
+          </tr>
+          <tr>
+            <td>S</td>
+            <td>B</td>
+            <td>q1</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q1</td>
+            <td>T</td>
+            <td>q2</td>
+            <td>T</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q1</td>
+            <td>P</td>
+            <td>q2</td>
+            <td>P</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q2</td>
+            <td>B</td>
+            <td>q3</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q3</td>
+            <td>P</td>
+            <td>q5</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q3</td>
+            <td>T</td>
+            <td>q4</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q4</td>
+            <td>S</td>
+            <td>q4</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q4</td>
+            <td>X</td>
+            <td>q6</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q5</td>
+            <td>T</td>
+            <td>q5</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q5</td>
+            <td>V</td>
+            <td>q7</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q6</td>
+            <td>S</td>
+            <td>q8</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q6</td>
+            <td>X</td>
+            <td>q5</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q7</td>
+            <td>V</td>
+            <td>q8</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q7</td>
+            <td>P</td>
+            <td>q6</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q8</td>
+            <td>E</td>
+            <td>q9</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q9</td>
+            <td>T</td>
+            <td>q10</td>
+            <td>_</td>
+            <td>L</td>
+          </tr>
+          <tr>
+            <td>q9</td>
+            <td>P</td>
+            <td>q11</td>
+            <td>_</td>
+            <td>L</td>
+          </tr>
+          <tr>
+            <td>q10</td>
+            <td>_</td>
+            <td>q10</td>
+            <td>_</td>
+            <td>L</td>
+          </tr>
+          <tr>
+            <td>q10</td>
+            <td>T</td>
+            <td>q12</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q11</td>
+            <td>_</td>
+            <td>q11</td>
+            <td>_</td>
+            <td>L</td>
+          </tr>
+          <tr>
+            <td>q11</td>
+            <td>P</td>
+            <td>q12</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q12</td>
+            <td>_</td>
+            <td>q12</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q12</td>
+            <td>E</td>
+            <td>q13</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+          <tr>
+            <td>q13</td>
+            <td>_</td>
+            <td>q13</td>
+            <td>_</td>
+            <td>R</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
