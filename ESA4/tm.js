@@ -9,7 +9,7 @@ var stepCounter = 0;
 var running = 0;
 var auto = 0;
 var finished = 0;
-var speed = 1000;
+var speed = 800;
 var lastEdge = "";
 
 function generateRight() {
