@@ -449,7 +449,7 @@ define(["exports", "dojo", "dojo/dom-style", "app", "scenegraph", "createScene",
 
 				// Back-face culling.
 				// Check if polygon is facing away from the camera (in negative z-direction).
-				if (backfaceCulling && vec3.dot([0, 0, 1], normal) <= 0) continue;
+
 				// END exercise Back-Face Culling
 
 				// The average of all vertices as debug geometry for the normals.
