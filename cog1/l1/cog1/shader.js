@@ -19,7 +19,7 @@ define(["exports"], function(exports) {
 	var shadingFunctionNames = ["none", "flat", "gouraud", "phong", "toon"];
 	// Name of the current/default shading function, which used for all nodes.
 	// Possible names are defined in shadingFunctionNames.
-	var shadingFunctionName = "phong";
+	var shadingFunctionName = "flat";
 	// Shading-function called from raster.scanline function.
 	var shadingFuncton = null;
 
@@ -328,21 +328,21 @@ define(["exports"], function(exports) {
 	 * 	Calculate one light intensity for the current polygon.
 	 */
 	function flatInit() {
-		/*	// Calculate the center point of the polygon.
-			var polygonCenter = [0, 0, 0];
-			for(var i = 0; i < polygon.length; i++) {
-				vec3.add(polygonCenter, vertices[polygon[i]]);
-			}
-			vec3.scale(polygonCenter, 1 / polygon.length);
+		// Calculate the center point of the polygon.
+		var polygonCenter = [0, 0, 0];
+		for (var i = 0; i < polygon.length; i++) {
+			vec3.add(polygonCenter, vertices[polygon[i]]);
+		}
+		vec3.scale(polygonCenter, 1 / polygon.length);
 
-			// Calculate light intensity at polygon center.
-			var intensity = calcLightIntensity(polygonCenter, polygonNormals[polygonIndex]);
+		// Calculate light intensity at polygon center.
+		var intensity = calcLightIntensity(polygonCenter, polygonNormals[polygonIndex]);
 
-			// Use ambient and diffuse light.
-			polygonLightIntensity = intensity["ambientDiffuse"];
-			// Use ambient, diffuse and specular light.
-			//var intensity = calcLightIntensity(polygonCenter, polygonNormal);
-			//polygonLightIntensity = intensity["ambientDiffuse"] +  255 * intensity["specular"]; */
+		// Use ambient and diffuse light.
+		polygonLightIntensity = intensity["ambientDiffuse"];
+		// Use ambient, diffuse and specular light.
+		//var intensity = calcLightIntensity(polygonCenter, polygonNormal);
+		//polygonLightIntensity = intensity["ambientDiffuse"] +  255 * intensity["specular"];
 	}
 
 
