@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" async defer></script>
+    <title>Prüfung WebProg</title>
+  </head>
+  <body>
+    <header>
+      <ul>
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#tele">Telecaster</a></li>
+        <li><a href="#strat">Stratocaster</a></li>
+        <li><a href="#super">Superstrat</a></li>
+        <li><a href="#semi">Semi-Hollow</a></li>
+      </ul>
+    </header>
+    <h1>E-Guitar Types</h1>
+    <div>
+      <article id="tele">
+        <h2>Telecasters</h2>
+        <img src="images/tele.jpg" alt="picture telecaster" />
+        <p>
+          The archetypical Fender Telecaster is a solid-body electric guitar
+          with a flat asymmetric single-cutaway body; the body is usually made
+          from alder or ash. Most Telecasters have two single-coil pickups, a
+          pickup selector switch, a single volume control and a single tone
+          control.
+        </p>
+      </article>
+
+      <article id="strat">
+        <h2>Stratocasters</h2>
+        <img src="images/strat.jpg" alt="picture stratocaster" />
+        <p>
+          The classic Strat design is the alder body, one-piece maple neck,
+          three single-coil pickups, and synchronized tremolo system.
+        </p>
+      </article>
+
+      <article id="super">
+        <h2>Superstrats</h2>
+        <img src="images/superstrat.jpg" alt="picture superstrat" />
+        <p>
+          The Super Strat, though modeled after the Stratocaster, is a very
+          different guitar. Basically, the only similarity this guitar really
+          has to its namesake is the body style. The pickups generally used in
+          Super Strats are of a higher output, which makes them more suited for
+          metal and hard rock.
+        </p>
+      </article>
+
+      <article id="semi">
+        <h2>Semi-Hollow Guitars</h2>
+        <img src="images/semihollow.jpg" alt="picture semi-hollow" />
+        <p>
+          Semi-Hollow Guitars are guitars which have an exposed opening,
+          generally in the form of two f-holes on the top of the guitar’s body.
+          The inner chamber of the guitar is then divided into two by a block of
+          wood which runs through the body.
+        </p>
+      </article>
+    </div>
+
+    <form class="newsletterForm">
+      <h2>
+        Subscribe to our newsletter for more interesting facts about guitars!
+      </h2>
+      <div class="container" id="containerDiv">
+        <input
+          name="vorname"
+          id="fname"
+          type="text"
+          size="30"
+          maxlength="30"
+          value=""
+          placeholder="Enter First Name"
+        />
+
+        <input
+          name="zuname"
+          id="lname"
+          type="text"
+          size="30"
+          maxlength="40"
+          value=""
+          placeholder="Enter Last Name"
+        />
+
+        <input
+          name="e-mail"
+          id="mail"
+          type="email"
+          size="15"
+          maxlength="20"
+          placeholder="Enter E-Mail Adress"
+        />
+      </div>
+      <button type="reset" class="resetbtn" id="resetButton">Reset</button>
+      <button type="submit" class="signupbtn" id="submitButton">Sign Up</button>
+    </form>
+  </body>
+</html>
