@@ -7,17 +7,19 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.event.ActionEvent?>
 
 <AnchorPane fx:id="scene" prefHeight="593.0" prefWidth="888.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
    <children>
       <Line id="goal" endX="100.0" layoutX="429.0" layoutY="368.0" startX="-100.0" style="-fx-translate-y: 180;" />
-      <Rectangle id="collision" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="590.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" style="-fx-translate-x: 200;" width="75.0" />
-      <Text id="output" layoutX="386.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-y: -180;" text="output" wrappingWidth="86.5185546875">
+      <Rectangle id="collisionObject" fx:id="collisionObject" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="590.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" style="-fx-translate-x: 200;" width="75.0" />
+      <Text id="output" fx:id="output" layoutX="386.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-y: -180;" text="output" wrappingWidth="86.5185546875">
          <font>
             <Font size="29.0" />
          </font>
       </Text>
       <Circle id="circle" fx:id="circle" fill="#1fffd4" layoutX="429.0" layoutY="247.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" style="-fx-scale-x: 0.5; -fx-scale-y: 0.5;" />
-      <Button id="start" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="274.0" layoutY="194.0" mnemonicParsing="false" style="-fx-translate-x: -260; -fx-translate-y: -180;" text="Reset" />
+      <Button id="start" fx:id="start" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="274.0" layoutY="194.0" mnemonicParsing="false" style="-fx-translate-x: -260; -fx-translate-y: -180;" text="Reset" onAction="#start"  />
+      <Rectangle id="item1" fx:id="item1" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="45.0" layoutX="81.0" layoutY="313.0" stroke="BLACK" strokeType="INSIDE" width="45.0" />
    </children>
 </AnchorPane>
